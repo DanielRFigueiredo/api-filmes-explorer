@@ -5,5 +5,6 @@ const userController = new UserController()
 
 
 routes.post('/', userController.create)
+routes.put('/:id', userController.update)
 
 module.exports = routes
