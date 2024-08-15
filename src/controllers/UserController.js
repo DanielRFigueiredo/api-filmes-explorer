@@ -1,6 +1,6 @@
 const AppError = require('../utils/AppError')
 const sqliteConnection = require('../database/sqlite')
-
+const { hash } = require('bcryptjs')
 class UserController {
   async create(req, res) {
     const { password, name, email } = req.body
@@ -9,7 +9,9 @@ class UserController {
     if (checkUserExists) {
       throw new AppError('User already exists')
     }
-    await database.run("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [name, email, password])
+    const hashedPassword = await hash(password, 8)
+
+    await database.run("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [name, email, hashedPassword])
 
     res.status(201).json({ password, name, email })
   }
