@@ -18,10 +18,10 @@ class UserController {
 
   async update(req, res) {
     const { name, email, old_password, password } = req.body
-    const { id } = req.params
+    const { id: user_id } = req.user
 
     const database = await sqliteConnection()
-    const user = await database.get("SELECT * FROM users WHERE id = (?)", [id])
+    const user = await database.get("SELECT * FROM users WHERE id = (?)", [user_id])
     if (!user) {
       throw new AppError('User does not exist')
     }
@@ -53,7 +53,7 @@ class UserController {
       password = ?,
       updated_at = DATETIME('now')
       where id = ?`,
-      [user.name, user.email, user.password, id]
+      [user.name, user.email, user.password, user_id]
     )
 
     return res.json()
