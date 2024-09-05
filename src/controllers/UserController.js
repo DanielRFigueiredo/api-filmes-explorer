@@ -17,6 +17,7 @@ class UserController {
   }
 
   async update(req, res) {
+
     const { name, email, old_password, password } = req.body
     const { id: user_id } = req.user
 

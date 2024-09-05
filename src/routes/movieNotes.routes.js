@@ -5,6 +5,7 @@ const movieNotesRouter = Router()
 const ensureAuthenticated = require('../middlewares/ensureAuthenticated')
 
 movieNotesRouter.use('/', ensureAuthenticated)
+
 movieNotesRouter.post('/', movieNotesController.create)
 movieNotesRouter.get('/:id', movieNotesController.show)
 movieNotesRouter.get('/', movieNotesController.index)

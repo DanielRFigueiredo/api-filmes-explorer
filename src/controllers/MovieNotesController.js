@@ -82,7 +82,6 @@ class MovieNotesController {
       const noteTags = userTags.filter(tag => tag.note_id === note.id)
       return { ...note, tags: noteTags }
     })
-
     res.json(notesWithTags)
 
   }
